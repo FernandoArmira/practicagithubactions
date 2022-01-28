@@ -1,0 +1,17 @@
+name: integracion continua con node.js # nombre del flujo de trabajo
+
+on: # iniciando el flujo de trabajo
+  pull_request: # se activa cuando haya pull request
+    branches: [ main ]
+
+jobs: # trabajos
+  ci_to_master: # nombre del trabajo
+    runs-on: ubuntu-latest # sistema operativo donde github va a probar el codigo a traves de un contenedor
+    steps: # pasos a ejecutar
+      - uses: actions/checkout@v2 #importar github actions habilita ambiente
+      - uses: actions/setup-node@v1 # configura el ambiente
+        with:
+          node-version: 10
+      - run: npm ci #comandos a ejecutar, instalacioj
+      - run: npm test # validacion funcion de suma
+      - run: npm run build # correr funcion de suma
